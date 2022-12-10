@@ -1,7 +1,19 @@
+local Players = game:GetService("Players")
+
 getgenv().Websyn = {}
+
+local function getClient()
+    if Players.LocalPlayer then
+        return Players.LocalPlayer
+    else
+        Players:GetPropertyChangedSignal("LocalPlayer"):Wait()
+        return Players.LocalPlayer
+    end
+end
 
 
 function Websyn.create(options)
+    options = options or {}
     local self = {
         port = options.port or "8000",
         splitter = options.splitter or "|",
@@ -17,11 +29,13 @@ function Websyn.create(options)
 end
 
 function Websyn:_setupSocket()
-    local ws = syn.websocket.connect(string.format("ws://websocket:%s", self.port))
+    local ws = syn.websocket.connect(string.format("ws://localhost:%s", self.port))
     local sckt = {}
+    sckt.real = ws
 
     function sckt.Send(_, ...)
-        local message = table.concat({...}, self.splitter)
+        local username = getClient().Name
+        local message = table.concat({username, ...}, self.splitter)
         ws:Send(message)
     end
 
@@ -55,20 +69,21 @@ function Websyn:_setupListener()
         end
     end
 
-    self.socket.OnMessage:Connect(received)
+    self.socket.real.OnMessage:Connect(received)
     self.listener = lstnr
 end
 
+-- example code
 
-local listener, socket = Websyn.create({
-    port = "8023", --  default: "8000"
-    splitter = "__", -- default: "|"
-})
+-- local listener, socket = Websyn.create({
+--     port = "8023", --  default: "8000"
+--     splitter = "__", -- default: "|"
+-- })
 
-listener.TestEvent:Connect(function(...)
-    for _,v in next, {...} do
-        print(v)
-    end
-end)
+-- listener.TestEvent:Connect(function(...)
+--     for _,v in next, {...} do
+--         print(v)
+--     end
+-- end)
 
-socket:Send("ServerEvent", "aids", "testicles")
+-- socket:Send("ServerEvent", "aids", "testicles")
