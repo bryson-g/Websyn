@@ -12,11 +12,10 @@ local function getClient()
 end
 
 
-function Websyn.create(options)
-    options = options or {}
+function Websyn.create(port)
     local self = {
-        port = options.port or "8000",
-        splitter = options.splitter or "|",
+        port = port or "8000",
+        splitter = "__!!",
 
         _setupListener = Websyn._setupListener,
         _setupSocket = Websyn._setupSocket
@@ -74,20 +73,24 @@ function Websyn:_setupSocket()
         ws:Send(message)
     end
 
+    function sckt.SendTo(_, receiver, ...)
+        local username = getClient().Name
+        local message = table.concat({"_sendingTo_DONT_USE", receiver, username, i, ...}, self.splitter)
+        ws:Send(message)
+    end
+
+    sckt._init_DONT_USE:Send()
     self.socket = sckt
 end
 
 -- example code
 
-local listener, socket = Websyn.create({
-    port = "8000", --  default: "8000"
-    splitter = "__", -- default: "|"
-})
+local listener, socket = Websyn.create("8000")
 
-listener.TestEvent:Connect(function(...)
+listener.Shit:Connect(function(...)
     for _,v in next, {...} do
-        print(v)
+        print(_, v)
     end
 end)
 
-socket.Shit:Send('balls', 'aids')
+socket.Shit:SendTo('barjalemuel', 'aids', 'monkey')
