@@ -28,20 +28,6 @@ function Websyn.create(options)
     return self.listener, self.socket
 end
 
-function Websyn:_setupSocket()
-    local ws = syn.websocket.connect(string.format("ws://localhost:%s", self.port))
-    local sckt = {}
-    sckt.real = ws
-
-    function sckt.Send(_, ...)
-        local username = getClient().Name
-        local message = table.concat({username, ...}, self.splitter)
-        ws:Send(message)
-    end
-
-    self.socket = sckt
-end
-
 function Websyn:_setupListener()
     local lstnr, i; lstnr = setmetatable({}, {
         __index = function(t,k)
@@ -73,17 +59,35 @@ function Websyn:_setupListener()
     self.listener = lstnr
 end
 
+function Websyn:_setupSocket()
+    local ws, i = syn.websocket.connect(string.format("ws://localhost:%s", self.port))
+    local sckt; sckt = setmetatable({real=ws}, {
+        __index = function(t,k)
+            i=k
+            return sckt
+        end
+    })
+
+    function sckt.Send(_, ...)
+        local username = getClient().Name
+        local message = table.concat({i, username, ...}, self.splitter)
+        ws:Send(message)
+    end
+
+    self.socket = sckt
+end
+
 -- example code
 
--- local listener, socket = Websyn.create({
---     port = "8023", --  default: "8000"
---     splitter = "__", -- default: "|"
--- })
+local listener, socket = Websyn.create({
+    port = "8000", --  default: "8000"
+    splitter = "__", -- default: "|"
+})
 
--- listener.TestEvent:Connect(function(...)
---     for _,v in next, {...} do
---         print(v)
---     end
--- end)
+listener.TestEvent:Connect(function(...)
+    for _,v in next, {...} do
+        print(v)
+    end
+end)
 
--- socket:Send("ServerEvent", "aids", "testicles")
+socket.Shit:Send('balls', 'aids')
