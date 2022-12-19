@@ -1,6 +1,6 @@
 local Players = game:GetService("Players")
 
-getgenv().Websyn = {}
+local Websyn = {}
 
 local function getClient()
     if Players.LocalPlayer then
@@ -83,14 +83,4 @@ function Websyn:_setupSocket()
     self.socket = sckt
 end
 
--- example code
-
-local listener, socket = Websyn.create("8000")
-
-listener.Shit:Connect(function(...)
-    for _,v in next, {...} do
-        print(_, v)
-    end
-end)
-
-socket.Shit:SendTo('barjalemuel', 'aids', 'monkey')
+return Websyn
