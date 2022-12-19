@@ -41,10 +41,4 @@ class Websyn {
     }
 }
 
-// const handler = new Websyn();
-
-// handler.connect('Shit', (username, ...args) => {
-//     console.log(`${args} send by ${username}`);
-// });
-
 module.exports = Websyn;
