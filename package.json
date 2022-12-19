@@ -1,0 +1,20 @@
+{
+  "name": "websyn",
+  "version": "1.0.0",
+  "description": "Synapse & Node.js websocket system",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bryson-g/Websyn.git"
+  },
+  "author": "bryson-g",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bryson-g/Websyn/issues"
+  },
+  "homepage": "https://github.com/bryson-g/Websyn#readme"
+}
