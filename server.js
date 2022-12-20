@@ -39,6 +39,23 @@ class Websyn {
     connect(event, callback) {
         this.registry[event] = callback;
     }
+
+    send(data) {
+        const message = [data.event, ...data.args].join("__!!");
+        console.log(message);
+        this.clients[data.username].send(message);
+    }
+}
+
+if (require.main == module) {
+    const handler = new Websyn()
+    setTimeout(() => {
+        handler.send({
+            username: 'byruson',
+            event: 'Test',
+            args: ['aids', 'monkey', 'balls']
+        });
+    }, 10000);
 }
 
 module.exports = Websyn;
