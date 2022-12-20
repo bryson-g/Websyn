@@ -15,7 +15,7 @@ local websyn = loadstring(game:HttpGet('https://raw.githubusercontent.com/bryson
 ```
 
 ## Usage
-### Echo server example, w/ client:
+### Example #1: Server log arguments:
 
 Node.js (server)
 ```js
@@ -23,7 +23,7 @@ const websyn = require('websyn');
 
 const handler = new websyn(8000); // Optional socket parameter, default is 8000
 
-handler.connect('EventNameHere', username => {
+handler.connect('EventNameHere', (username, args) => {
     console.log(`${username} has sent this event`);
 });
 ```
