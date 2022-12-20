@@ -66,5 +66,9 @@ Lua (client)
 local websyn = loadstring(game:HttpGet('https://raw.githubusercontent.com/bryson-g/Websyn/main/rbx-counterpart/client.lua'))()
 
 local client, server = websyn.create()
-client.
+client.PrintArgs:Connect(function(...)
+ for i,v in next, {...} do
+  print(i,v)
+ end
+end)
 ```
