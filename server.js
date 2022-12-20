@@ -47,15 +47,4 @@ class Websyn {
     }
 }
 
-if (require.main == module) {
-    const handler = new Websyn()
-    setTimeout(() => {
-        handler.send({
-            username: 'byruson',
-            event: 'Test',
-            args: ['aids', 'monkey', 'balls']
-        });
-    }, 10000);
-}
-
 module.exports = Websyn;
