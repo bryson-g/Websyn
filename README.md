@@ -24,10 +24,10 @@ Node.js (server)
 ```js
 const websyn = require('websyn');
 
-const handler = new websyn(8000); // Optional socket parameter, default is 8000
+const server = new websyn(8000); // Optional socket parameter, default is 8000
 
 // Username of the sender will always be the first parameter
-handler.connect('EventNameHere', (username, ...args) => {
+server.connect('EventNameHere', (username, ...args) => {
     console.log(`${username} has triggered this event`);
     console.log(args);
 
@@ -42,8 +42,25 @@ Lua (client)
 ```lua
 local websyn = loadstring(game:HttpGet('https://raw.githubusercontent.com/bryson-g/Websyn/main/rbx-counterpart/client.lua'))()
 
-local listener, server = websyn.create("8000") -- Optional socket parameter, default is 8000
+local client, server = websyn.create("8000") -- Optional socket parameter, default is 8000
 
-// Only string paremeters allowed
-server.EventNameHere:Send('hello', 'goodbye');
+server.EventNameHere:Send('hello', 'goodbye'); -- Only string paremeters allowed
+```
+
+### Example #2: Trigger client event from server:
+
+Node.js (server)
+```js
+const websyn = require('websyn');
+
+const server = new websyn();
+server.send(<insert username here>, 'PrintArgs', 'googoo', 'gaaga'); // Only string paremeters allowed
+```
+
+Lua (client)
+```lua
+local websyn = loadstring(game:HttpGet('https://raw.githubusercontent.com/bryson-g/Websyn/main/rbx-counterpart/client.lua'))()
+
+local client, server = websyn.create()
+client.
 ```
