@@ -1,5 +1,5 @@
 # Websyn
-An easy to use event based system for Synapse webhooks. Comparable to Roblox's remote system syntax.
+An easy to use event based system for Synapse webhooks.
 I created this for myself, so I probably won't be fixing any bugs or adding features unless I personally need to.
 Feel free to fork and modify it however you'd like to.
 
