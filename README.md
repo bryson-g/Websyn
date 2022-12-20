@@ -54,7 +54,11 @@ Node.js (server)
 const websyn = require('websyn');
 
 const server = new websyn();
-server.send(<insert username here>, 'PrintArgs', 'googoo', 'gaaga'); // Only string paremeters allowed
+server.send({
+ event: 'PrintArgs',
+ username: 'robloxgamer33', // example username
+ args: ['burger', 'burrito', 'taco']
+});
 ```
 
 Lua (client)
