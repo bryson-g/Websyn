@@ -32,6 +32,6 @@ Lua (client)
 ```lua
 local websyn = loadstring(game:HttpGet('https://raw.githubusercontent.com/bryson-g/Websyn/main/rbx-counterpart/client.lua'))()
 
-local listener, socket = websyn.create("8000") // Optional socket parameter, default is 8000
+local listener, socket = websyn.create("8000") -- Optional socket parameter, default is 8000
 
 ```
