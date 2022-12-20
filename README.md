@@ -32,7 +32,7 @@ handler.connect('EventNameHere', (username, ...args) => {
     console.log(args);
 
     /* Expected output: 
-       '<username> has triggered this event'
+       <username> has triggered this event
        ['hello', 'goodbye']
     */
 });
