@@ -30,7 +30,7 @@ const handler = new websyn(8000); // Optional socket parameter, default is 8000
 handler.connect('EventNameHere', (username, ...args) => {
     console.log(`${username} has triggered this event`);
     console.log(args);
-    // Expected output: [
+    // Expected output: ['hello', 'goodbye']
 });
 ```
 
