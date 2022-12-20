@@ -14,6 +14,9 @@ Lua
 local websyn = loadstring(game:HttpGet('https://raw.githubusercontent.com/bryson-g/Websyn/main/rbx-counterpart/client.lua'))()
 ```
 
+## Known issues that I'm not going to patch:
+ - Calling websyn.create too fast (like autoexec) will cause an error (synapse issue)
+
 ## Usage
 ### Example #1: Server log arguments:
 
@@ -23,8 +26,11 @@ const websyn = require('websyn');
 
 const handler = new websyn(8000); // Optional socket parameter, default is 8000
 
-handler.connect('EventNameHere', (username, args) => {
-    console.log(`${username} has sent this event`);
+// Username of the sender will always be the first parameter
+handler.connect('EventNameHere', (username, ...args) => {
+    console.log(`${username} has triggered this event`);
+    console.log(args);
+    // Expected output: [
 });
 ```
 
@@ -32,6 +38,7 @@ Lua (client)
 ```lua
 local websyn = loadstring(game:HttpGet('https://raw.githubusercontent.com/bryson-g/Websyn/main/rbx-counterpart/client.lua'))()
 
-local listener, socket = websyn.create("8000") -- Optional socket parameter, default is 8000
+local listener, server = websyn.create("8000") -- Optional socket parameter, default is 8000
 
+server.EventNameHere:Send('hello', 'goodbye');
 ```
