@@ -44,5 +44,6 @@ local websyn = loadstring(game:HttpGet('https://raw.githubusercontent.com/bryson
 
 local listener, server = websyn.create("8000") -- Optional socket parameter, default is 8000
 
+// Only string paremeters allowed
 server.EventNameHere:Send('hello', 'goodbye');
 ```
