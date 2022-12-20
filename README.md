@@ -15,23 +15,23 @@ local websyn = loadstring(game:HttpGet('https://raw.githubusercontent.com/bryson
 ```
 
 ## Usage
+### Echo server example, w/ client:
 
-Node.js
+Node.js (server)
 ```js
 const websyn = require('websyn');
 
-const socket = 8000
-const handler = new websyn(socket); // Default socket is 8000
+const handler = new websyn(8000); // Optional socket parameter, default is 8000
 
 handler.connect('EventNameHere', username => {
     console.log(`${username} has sent this event`);
 });
 ```
 
-Lua
+Lua (client)
 ```lua
 local websyn = loadstring(game:HttpGet('https://raw.githubusercontent.com/bryson-g/Websyn/main/rbx-counterpart/client.lua'))()
 
-local listener, socket = websyn.create("8000") // Default socket is 8000
+local listener, socket = websyn.create("8000") // Optional socket parameter, default is 8000
 
 ```
