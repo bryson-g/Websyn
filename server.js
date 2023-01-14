@@ -26,18 +26,27 @@ class Websyn {
                 const [ _, receiver, sender, eventName, ...rest ] = split;
                 const sending = [eventName, sender, ...rest ].join("__!!");
                 this.clients[receiver].send(sending);
+                
             }
 
             // Initialize event callbacks
             if (this.registry[protocol]) {
                 const [ _, sender, ...args ] = split;
-                this.registry[protocol](sender, ...args);
+
+                for (const callback of this.registry[protocol]) {
+                    callback(sender, ...args);
+                }
             }
         })
     }
 
+    // WONT WORK WITH TRYING TO CONNECT MULTIPLE OF THE SAME EVENT. PUT ARRAY INTO CALLBACK
     connect(event, callback) {
-        this.registry[event] = callback;
+        if (!this.registry[event]) {
+            this.registry[event] = [];
+        }
+        
+        this.registry[event].push(callback);
     }
 
     send(data) {
