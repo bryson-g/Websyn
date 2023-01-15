@@ -4,6 +4,8 @@ class Websyn {
     constructor(port = 8000) {
         this.clients = {};
         this.registry = {};
+        this.remove_registry = {};
+
         this.server = new WebSocket.Server({ port: port });
         this.server.on('connection', client => this._onConnection(client));
     }
@@ -30,12 +32,20 @@ class Websyn {
             }
 
             // Initialize event callbacks
-            if (this.registry[protocol]) {
+            const registry = this.registry[protocol];
+            if (registry) {
                 const [ _, sender, ...args ] = split;
 
-                for (const callback of this.registry[protocol]) {
+                for (const callback of registry) {
                     callback(sender, ...args);
                 }
+
+                const removeRegistry = this.remove_registry[protocol];
+
+                for (const callback of removeRegistry) {
+                    registry.splice(registry.indexOf(callback), 1);
+                }
+                this.remove_registry[protocol] = [];
             }
         })
     }
@@ -47,6 +57,16 @@ class Websyn {
         }
         
         this.registry[event].push(callback);
+    }
+
+    once(event, callback) {
+        this.connect(event, callback);
+        
+        if (!this.remove_registry[event]) {
+            this.remove_registry[event] = [];
+        }
+
+        this.remove_registry[event].push(callback);
     }
 
     send(data) {
