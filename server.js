@@ -54,8 +54,18 @@ class Websyn {
         if (!this.registry[event]) {
             this.registry[event] = [];
         }
-        
         this.registry[event].push(callback);
+        
+        let db = false;
+        return () => {
+            if (db) throw 'Cannot disconnect multiple times.';
+            db = true;
+
+            if (!this.remove_registry[event]) {
+                this.remove_registry[event] = [];
+            }
+            this.remove_registry[event].push(callback);
+        };
     }
 
     once(event, callback, timeout) { // integrate timeout cuz if the join fails, the event may never be ran.
