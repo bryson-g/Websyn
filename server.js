@@ -19,7 +19,7 @@ class Websyn {
             // Initialize username ID
             if (protocol == "_init_DONT_USE") {
                 const [ _, sender ] = split;
-                console.log(`Initializing ${sender}...`);
+                //console.log(`Initializing ${sender}...`);
                 this.clients[sender] = client;
             }
 
@@ -50,7 +50,6 @@ class Websyn {
         })
     }
 
-    // WONT WORK WITH TRYING TO CONNECT MULTIPLE OF THE SAME EVENT. PUT ARRAY INTO CALLBACK
     connect(event, callback) {
         if (!this.registry[event]) {
             this.registry[event] = [];
@@ -59,7 +58,7 @@ class Websyn {
         this.registry[event].push(callback);
     }
 
-    once(event, callback) {
+    once(event, callback, timeout) { // integrate timeout cuz if the join fails, the event may never be ran.
         this.connect(event, callback);
         
         if (!this.remove_registry[event]) {
