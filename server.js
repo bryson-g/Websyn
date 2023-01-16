@@ -40,7 +40,7 @@ class Websyn {
                     callback(sender, ...args);
                 }
 
-                const removeRegistry = this.remove_registry[protocol];
+                const removeRegistry = this.remove_registry[protocol] || [];
 
                 for (const callback of removeRegistry) {
                     registry.splice(registry.indexOf(callback), 1);
