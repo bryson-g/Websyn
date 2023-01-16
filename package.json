@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/bryson-g/Websyn/issues"
   },
-  "homepage": "https://github.com/bryson-g/Websyn#readme"
+  "homepage": "https://github.com/bryson-g/Websyn#readme",
+  "dependencies": {
+    "ws": "^8.12.0"
+  }
 }

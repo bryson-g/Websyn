@@ -31,7 +31,8 @@ server.connect('EventNameHere', (username, ...args) => {
     console.log(`${username} has triggered this event`);
     console.log(args);
 
-    /* Expected output: 
+    /* 
+    Expected output: 
        <username> has triggered this event
        ['hello', 'goodbye']
     */
@@ -55,9 +56,9 @@ const websyn = require('websyn');
 
 const server = new websyn();
 server.send({
- event: 'PrintArgs',
- username: 'robloxgamer33', // example username
- args: ['burger', 'burrito', 'taco']
+    event: 'PrintArgs',
+    username: 'robloxgamer33', // example username
+    args: ['burger', 'burrito', 'taco']
 });
 ```
 
@@ -67,8 +68,8 @@ local websyn = loadstring(game:HttpGet('https://raw.githubusercontent.com/bryson
 
 local client, server = websyn.create()
 client.PrintArgs:Connect(function(...)
- for i,v in next, {...} do
-  print(i,v)
- end
+    for i,v in next, {...} do
+        print(i,v)
+    end
 end)
 ```
