@@ -14,9 +14,6 @@ Lua
 local websyn = loadstring(game:HttpGet('https://raw.githubusercontent.com/bryson-g/Websyn/main/rbx-counterpart/client.lua'))()
 ```
 
-## Known issues that I'm not going to patch:
- - Calling websyn.create too fast (like autoexec) will cause an error (synapse issue)
-
 ## Usage
 ### Example #1: Server log arguments:
 
