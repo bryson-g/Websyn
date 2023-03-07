@@ -79,7 +79,7 @@ class Websyn {
     }
 
     send(data) {
-        const message = [data.event, ...data.args].join("__!!");
+        const message = [data.event, ...(data.args || [])].join("__!!");
         console.log(message);
         this.clients[data.username].send(message);
     }
